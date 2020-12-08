@@ -3,7 +3,6 @@ const boom = require('boom')
 const user = require('./user')
 const shop = require('./shop')
 const getCode = require('./getCode')
-
 const router = express.Router()
 
 router.get('/', function (req, res) {

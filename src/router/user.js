@@ -9,17 +9,23 @@ const router = express.Router()
 router.post('/', function (req, res, next) {
     const userName = req.body.userName
     const password = req.body.password
-    login(userName, password).then(response => {
-        if (!response || response.length === 0) {
-            new Result('登录失败，请检查用户名和密码').fail(res)
-        } else {
-            const token = jwt.sign(
-                {userName}, PRIVATE, {expiresIn: JWT_EXPIRED}
-            )
-            // console.log(123+response)
-            new Result({token, response}, '登录成功').success(res)
-        }
-    })
+    const code = req.body.code
+    console.log(req.session.captcha)
+    if (code.toLowerCase() === req.session.captcha.toLowerCase()) {
+        login(userName, password).then(response => {
+            if (!response || response.length === 0) {
+                new Result('登录失败，请检查用户名和密码').fail(res)
+            } else {
+                const token = jwt.sign(
+                    {userName}, PRIVATE, {expiresIn: JWT_EXPIRED}
+                )
+                // console.log(123+response)
+                new Result({token, response}, '登录成功').success(res)
+            }
+        })
+    } else{
+        new Result('验证码错误，请重新输入').fail(res)
+    }
 })
 
 router.get('/info', function (req, res, next) {

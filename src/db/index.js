@@ -137,5 +137,5 @@ module.exports = {
     querySql,
     update,
     deleteUser,
-    insert
+    insert,
 }

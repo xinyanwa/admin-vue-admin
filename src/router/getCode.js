@@ -1,8 +1,8 @@
 const express = require('express')
 const svgCaptcha = require('svg-captcha')
 const Result = require('../modules/result')
-
 const router = express.Router()
+
 
 router.get('/',function (req,res) {
     const captchaConfig = {
@@ -17,3 +17,4 @@ router.get('/',function (req,res) {
 })
 
 module.exports = router
+
